@@ -19,6 +19,7 @@ package mutating
 import (
 	"context"
 	"net/http"
+	"strconv"
 
 	appsv1alpha1 "github.com/openkruise/kruise/pkg/apis/apps/v1alpha1"
 	"github.com/openkruise/kruise/pkg/webhook/default_server/utils"
@@ -61,7 +62,8 @@ func setDefaultBroadcastJob(job *appsv1alpha1.BroadcastJob) {
 
 	if job.Spec.Parallelism == nil {
 		parallelism := int32(1<<31 - 1)
-		job.Spec.Parallelism = &parallelism
+		parallelismString := strconv.Itoa(int(parallelism))
+		job.Spec.Parallelism = &parallelismString
 	}
 }
 
